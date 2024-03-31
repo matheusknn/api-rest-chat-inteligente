@@ -33,7 +33,7 @@ public class ChampionJdbcRepository implements ChampionRepository {
     @Override
     public Optional<Champion> findByd(Long id) {
         String querySql = "SELECT * FROM CHAMPIONS WHERE ID = ?";
-        Champion champion = jdbcTemplate.queryForObject(querySql, rowMapper, id);
-        return Optional.ofNullable(champion);
+        List<Champion> champions = jdbcTemplate.query(querySql, rowMapper, id);
+        return champions.stream().findFirst();
     }
 }
